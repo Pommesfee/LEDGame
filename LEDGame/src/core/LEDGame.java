@@ -12,12 +12,15 @@ public class LEDGame {
 	private ArrayList<Integer> gameStack;
 	private ArrayList<Integer> eventStack;
 	private int progress = 0;
-	
+	private int currentProgress = 0;
+
 	private boolean completed;
 
 	private LEDController ledCon;
 
 	private Random r = new Random();
+
+	private Thread thread = null;
 
 	public LEDGame(LEDController ledCon) {
 		this.ledCon = ledCon;
@@ -31,6 +34,22 @@ public class LEDGame {
 		}
 
 		eventStack = new ArrayList<Integer>();
+
+		if (gameStack.get(0) == GREEN) {
+			ledCon.setGreenActive(true);
+		} else if (gameStack.get(0) == YELLOW) {
+			ledCon.setYellowActive(true);
+		} else if(gameStack.get(0) == RED) {
+			ledCon.setRedActive(true);
+		}
+		
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		ledCon.setAllActive(false);
 	}
 
 	public void notifyGreenPressed() {
@@ -49,7 +68,7 @@ public class LEDGame {
 	}
 
 	private void checkGame() {
-		
+
 		if (progress > gameStack.size()) {
 			System.out.println("Game Completed");
 			completed = true;
@@ -59,13 +78,15 @@ public class LEDGame {
 			System.out.println("SUCCESS!");
 			progress += 1;
 			Frame.setTxtPaneText("SUCCESS!");
-		} else if(gameStack.get(progress) != eventStack.get(progress)) {
+		} else if (gameStack.get(progress) != eventStack.get(progress)) {
 			System.out.println("FAILED!");
 			Frame.setTxtPaneText("FAILED! GameOver");
 		}
 		
+		//TODO Continue LED Enabling/Disabling after game start
+
 	}
-	
+
 	public boolean isCompleted() {
 		return completed;
 	}

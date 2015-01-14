@@ -201,4 +201,10 @@ public class LEDController {
 	private boolean isRedActive() {
 		return redActive;
 	}
+
+	public void setAllActive(boolean active) {
+		setGreenActive(active);
+		setYellowActive(active);
+		setRedActive(active);
+	}
 }
