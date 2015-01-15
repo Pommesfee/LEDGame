@@ -13,6 +13,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
+/**
+ * Class that handles the optical apperance of
+ * the LED-Game.
+ * 
+ * @author Pommesfee
+ * @version 1.0
+ * @since 1.0
+ */
 public class Frame extends JFrame{
 
 	private String title = "LED Game";

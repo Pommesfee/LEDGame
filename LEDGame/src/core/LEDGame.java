@@ -3,16 +3,24 @@ package core;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Main game class with gamelogic.
+ * 
+ * @author Pommesfee
+ * @version 1.0
+ * @since 1.0
+ */
 public class LEDGame {
 
+	// green, yellow, red
 	private static final int GREEN = 1;
 	private static final int YELLOW = 2;
 	private static final int RED = 3;
 
+	// Listen der Zustände und Eingaben
 	private ArrayList<Integer> gameStack;
 	private ArrayList<Integer> eventStack;
 	private int progress = 0;
-	//private int currentProgress = 0;
 
 	private boolean completed;
 
@@ -28,6 +36,10 @@ public class LEDGame {
 		eventStack = new ArrayList<Integer>();
 	}
 
+	/**
+	 * This method initializes a new game with random values
+	 * and shows also the first led.
+	 */
 	public void startGame() {
 		
 		for (int i = 0; i < 10; i++) {
@@ -52,11 +64,15 @@ public class LEDGame {
 		ledCon.setAllActive(false);
 	}
 	
+	/**
+	 * this method goes to all previos correct steps
+	 * and shows them again until the end is reached.
+	 */
 	private void nextRound() {
 		
 		int col = 0;
 		
-		for (int i = 0; i < progress; i++) {
+		for (int i = 0; i <= progress; i++) {
 			
 			col = eventStack.get(i);
 			
@@ -81,21 +97,37 @@ public class LEDGame {
 		
 	}
 	
+	/**
+	 * Method to notify that the green button has been clicked an
+	 * check if that whas the right choice.
+	 */
 	public void notifyGreenPressed() {
 		eventStack.add(GREEN);
 		checkGame();
 	}
 
+	/**
+	 * Method to notify that the yellow button has been clicked an
+	 * check if that whas the right choice.
+	 */
 	public void notifyYellowPressed() {
 		eventStack.add(YELLOW);
 		checkGame();
 	}
 
+	/**
+	 * Method to notify that the red button has been clicked an
+	 * check if that was the right choice.
+	 */
 	public void notifyRedPressed() {
 		eventStack.add(RED);
 		checkGame();
 	}
 
+	/**
+	 * Method to check gamestack against eventstack.
+	 * (Checking userinput for correctness)
+	 */
 	private void checkGame() {
 
 		if (progress > gameStack.size()) {

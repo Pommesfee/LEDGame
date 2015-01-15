@@ -2,6 +2,15 @@ package core;
 
 import com.codemercs.iow.IowKit;
 
+/**
+ * A class to simply enabled/disable the LEDs.
+ * The LEDs need to be on port 0.1 to 0.3 [Port1 = Green]
+ * and so on.
+ * 
+ * @author Pommesfee
+ * @version 1.0
+ * @since 1.0
+ */
 public class LEDController {
 
 	private long handle;
@@ -28,10 +37,13 @@ public class LEDController {
 			System.out.println("ERROR: IowKit.write()");
 	}
 
+	/**
+	 * Enabled/disable green.
+	 * 
+	 * @param active true = enabled / false = disabled
+	 */
 	public void setGreenActive(boolean active) {
-
-		// LED mit iow kit anschaltwen auschalten !!!
-
+		
 		if (isGreenActive() && active) {
 			System.out.println("Green already active!");
 		} else if (!isGreenActive() && active) {
@@ -81,10 +93,12 @@ public class LEDController {
 			System.out.println("ERROR: IowKit.write()");
 	}
 
-	
+	/**
+	 * Enabled/disable yellow.
+	 * 
+	 * @param active true = enabled / false = disabled
+	 */
 	public void setYellowActive(boolean active) {
-
-		// LED mit iow kit anschaltwen auschalten !!!
 
 		if (isYellowActive() && active) {
 			System.out.println("Yellow already active!");
@@ -136,9 +150,12 @@ public class LEDController {
 
 	}
 
+	/**
+	 * Enabled/disable red.
+	 * 
+	 * @param active true = enabled / false = disabled
+	 */
 	public void setRedActive(boolean active) {
-
-		// LED mit iow kit anschaltwen auschalten !!!
 
 		if (isRedActive() && active) {
 			System.out.println("Red already active!");
