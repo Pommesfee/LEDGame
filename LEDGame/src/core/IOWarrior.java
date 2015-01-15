@@ -26,6 +26,8 @@ public class IOWarrior {
 		ledGame = new LEDGame(ledCon);
 		frame = new Frame(ledGame);
 		
+		ledGame.startGame();
+		
 		while (!ledGame.isCompleted()) {
 			try {
 				Thread.sleep(250);
