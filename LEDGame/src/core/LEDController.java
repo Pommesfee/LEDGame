@@ -220,8 +220,26 @@ public class LEDController {
 	}
 
 	public void setAllActive(boolean active) {
-		setGreenActive(active);
-		setYellowActive(active);
-		setRedActive(active);
+		if (active) {
+			if (!isGreenActive()) {
+				setGreenActive(active);
+			}
+			if (!isYellowActive()) {
+				setYellowActive(active);
+			}
+			if (!isRedActive()) {
+				setRedActive(active);
+			}
+		} else if (!active) {
+			if (isGreenActive()) {
+				setGreenActive(active);
+			}
+			if (isYellowActive()) {
+				setYellowActive(active);
+			}
+			if (isRedActive()) {
+				setRedActive(active);
+			}
+		}
 	}
 }

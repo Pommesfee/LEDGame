@@ -16,11 +16,13 @@ public class LEDGame {
 	private static final int GREEN = 1;
 	private static final int YELLOW = 2;
 	private static final int RED = 3;
+	private static final int eventStackSizeBefore = 0;
 
-	// Listen der Zustände und Eingaben
+	// Listen der Zustaende und Eingaben
 	private ArrayList<Integer> gameStack;
 	private ArrayList<Integer> eventStack;
 	private int progress = 0;
+	private int progressCurrent = 0;
 
 	private boolean completed;
 
@@ -56,7 +58,7 @@ public class LEDGame {
 		}
 		
 		try {
-			Thread.sleep(500);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -74,7 +76,7 @@ public class LEDGame {
 		
 		for (int i = 0; i <= progress; i++) {
 			
-			col = eventStack.get(i);
+			col = gameStack.get(i);
 			
 			if (col == GREEN) {
 				ledCon.setGreenActive(true);
@@ -87,12 +89,29 @@ public class LEDGame {
 			}
 			
 			try {
-				Thread.sleep(500);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			
 			ledCon.setAllActive(false);
+		}
+		
+		//Reste eventStack
+		int eventStacktSizeBefore = eventStack.size();
+		for (int i = 0; i < eventStack.size(); i++) {
+			eventStack.remove(i);
+		}
+		
+		int eventStackSizeLast = 0;
+		
+		//Wait for input
+		while (progressCurrent <= eventStacktSizeBefore) {
+				
+			if (eventStack.size() > eventStackSizeLast) {
+				checkGame();
+				progressCurrent += 1;
+			}	
 		}
 		
 	}

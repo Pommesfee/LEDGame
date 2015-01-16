@@ -1,5 +1,8 @@
 package core;
 
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
 import com.codemercs.iow.IowKit;
 
 /**
@@ -11,26 +14,37 @@ import com.codemercs.iow.IowKit;
 public class IOWarrior {
 	
 	public static void main(String[] args) {
-		
-		//Variablen
+
+		// Variablen
 		boolean paused = false;
-		Frame frame = null;
-		LEDGame ledGame = null;
 		LEDController ledCon = null;
-		
-		//IoWarrior Treiber laden
+		LEDGame ledGame = null;
+
+		// IoWarrior Treiber laden
 		long h = IowKit.openDevice();
 		System.out.println("Product = "
 				+ Long.toHexString(IowKit.getProductId(h)));
 		System.out.println("Serial = " + IowKit.getSerialNumber(h));
-		
+
 		ledCon = new LEDController(h);
 		ledGame = new LEDGame(ledCon);
-		frame = new Frame(ledGame);
-		
+
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					UIManager.setLookAndFeel(UIManager
+							.getSystemLookAndFeelClassName());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				Frame frame = new Frame(ledGame);
+				frame.setVisible(true);
+			}
+		});
 		ledGame.startGame();
-		
-		//Loop
+
+		// Loop
 		while (!ledGame.isCompleted()) {
 			try {
 				Thread.sleep(250);
@@ -38,9 +52,8 @@ public class IOWarrior {
 				e.printStackTrace();
 			}
 		}
-	
+
 		IowKit.closeDevice(h);
 	}
-
 
 }
